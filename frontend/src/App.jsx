@@ -31,6 +31,7 @@ const API_BASE = (
 ).replace(/\/$/, "");
 const API_ENDPOINT = `${API_BASE}/api/tax/calculate`;
 const STATE_RATES_ENDPOINT = `${API_BASE}/api/tax/state-rates`;
+const IS_BROWSER = typeof window !== "undefined";
 
 const STORAGE_KEY = "nil-income-tracker";
 
@@ -105,6 +106,9 @@ export default function App() {
   const [showResetModal, setShowResetModal] = useState(false);
 
   useEffect(() => {
+    // Skip any backend calls while building or rendering on the server.
+    if (!IS_BROWSER) return undefined;
+
     const controller = new AbortController();
 
     const hydrateStateRates = async () => {

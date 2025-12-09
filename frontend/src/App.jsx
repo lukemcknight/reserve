@@ -8,9 +8,13 @@ const fallbackStates = [
 ];
 
 const federalRates = [
+  { label: "10%", value: 0.10 },
   { label: "12%", value: 0.12 },
   { label: "22%", value: 0.22 },
   { label: "24%", value: 0.24 },
+  { label: "32%", value: 0.32 },
+  { label: "35%", value: 0.35 },
+  { label: "37%", value: 0.37 },
 ];
 
 const sources = [

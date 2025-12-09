@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -6,10 +8,20 @@ from app.utils.constants import DISCLAIMER
 
 app = FastAPI(title="NIL Tax Reserve Prototype", version="0.1.0")
 
-# Allow local dev callers (Vite defaults to port 5173). OPTIONS is handled by the middleware.
+# Allow callers from the SPA (local dev + deployed). Configure additional origins with
+# ALLOWED_ORIGINS="https://myapp.com,https://www.myapp.com".
+allowed_origins = [
+    origin.strip()
+    for origin in os.getenv("ALLOWED_ORIGINS", "").split(",")
+    if origin.strip()
+]
+if not allowed_origins:
+    # Default to permissive CORS since this is a public, unauthenticated API.
+    allowed_origins = ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=allowed_origins,
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],

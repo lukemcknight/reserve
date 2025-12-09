@@ -28,5 +28,8 @@ Estimates only. Not tax advice.
      -d '{"amount": 5000, "state": "OH", "federal_rate": 0.22}'
    ```
 
+## Deployment notes
+- CORS: set `ALLOWED_ORIGINS` (comma-separated) to your frontend domains (e.g., `https://myapp.vercel.app`) so browsers can call the API. Defaults to `*` for public use.
+
 ## Additional endpoints
 - `GET /api/tax/state-rates` — list of supported state codes, display names, and effective rates used by the calculator.
